@@ -27,6 +27,40 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Paint the root canvas so overscroll / rubber-band never flashes white. */
+  background-color: var(--color-paper);
+  color-scheme: light;
+}
+
+/* ---- Dark mode: "the workshop at night" ---------------------------- *
+ * Tokens flip; every component reads them, so the whole site follows.
+ * Active on system preference (unless the user forced light) or via an
+ * explicit .dark class set by the toggle. */
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    color-scheme: dark;
+    --color-paper: #14201a;
+    --color-paper-2: #1a2721;
+    --color-paper-3: #24322b;
+    --color-ink: #ecebe1;
+    --color-ink-soft: #a3ada3;
+    --color-commons: #2cb271;
+    --color-commons-deep: #58d094;
+    --color-marigold: #ebb648;
+    --color-line: #344139;
+  }
+}
+html.dark {
+  color-scheme: dark;
+  --color-paper: #14201a;
+  --color-paper-2: #1a2721;
+  --color-paper-3: #24322b;
+  --color-ink: #ecebe1;
+  --color-ink-soft: #a3ada3;
+  --color-commons: #2cb271;
+  --color-commons-deep: #58d094;
+  --color-marigold: #ebb648;
+  --color-line: #344139;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,6 +123,23 @@ body {
   z-index: -1;
   pointer-events: none;
 }
+/* multiply vanishes on a dark ground — switch to screen so the offset shows. */
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .riso::before { mix-blend-mode: screen; }
+}
+html.dark .riso::before { mix-blend-mode: screen; }
+
+/* ---- Theme toggle icon: reflect light / dark / system state -------- */
+.t-sun { display: none; }
+.t-moon { display: inline; }
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) .t-moon { display: none; }
+  html:not(.light):not(.dark) .t-sun { display: inline; }
+}
+html.dark .t-moon { display: none; }
+html.dark .t-sun { display: inline; }
+html.light .t-moon { display: inline; }
+html.light .t-sun { display: none; }
 
 /* ---- Utility label look (mono, tracked, small) --------------------- */
 .tag {

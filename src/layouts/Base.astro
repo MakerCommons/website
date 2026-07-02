@@ -26,7 +26,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f1ede3" />
+    <meta name="theme-color" content="#f1ede3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14201a" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
@@ -36,9 +37,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- Progressive enhancement flag: gates scroll-reveal so no-JS stays visible. -->
+    <!-- Runs before paint: flags JS (gates scroll-reveal) and applies the
+         saved theme so there's no light/dark flash on load. -->
     <script is:inline>
       document.documentElement.classList.add('js');
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
+      } catch (e) {}
     </script>
   </head>
   <body>
