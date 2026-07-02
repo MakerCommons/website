@@ -215,6 +215,47 @@ const featuredMakers = makers.slice(0, 8);
     </div>
   </section>
 
+  <!-- ============================ SUPPORT ========================= -->
+  <section id="support" class="border-b-2 border-ink">
+    <div class="mx-auto max-w-6xl px-5 py-20">
+      <div class="reveal grid gap-8 rounded-2xl border-2 border-ink bg-paper-2 p-8 sm:p-12 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+        <div>
+          <div class="flex flex-wrap items-center gap-3">
+            <p class="tag text-commons-deep">{tt.support.eyebrow}</p>
+            <span class="tag rounded-full border-2 border-ink bg-paper px-2.5 py-0.5">{tt.support.badge}</span>
+          </div>
+          <h2 class="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{tt.support.title}</h2>
+          <p class="mt-4 text-lg leading-relaxed text-ink-soft">{tt.support.body1}</p>
+          <p class="mt-3 leading-relaxed text-ink-soft">{tt.support.body2}</p>
+        </div>
+
+        <div class="flex flex-col rounded-xl border-2 border-ink bg-paper p-6">
+          <p class="font-display text-lg font-bold leading-snug">{tt.support.helpTitle}</p>
+          <ul class="mt-4 flex-1 space-y-3">
+            {
+              tt.support.ways.map((w) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-ink-soft">
+                  <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-commons" aria-hidden="true" />
+                  <span>{w}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href={SITE.newIssue} target="_blank" rel="noopener"
+              class="inline-flex items-center gap-2 rounded-lg border-2 border-ink bg-commons px-4 py-2.5 text-sm font-semibold text-paper transition-transform hover:-translate-y-0.5">
+              {tt.support.ctaBring}
+            </a>
+            <a href={SITE.contributing} target="_blank" rel="noopener"
+              class="inline-flex items-center gap-2 rounded-lg border-2 border-ink bg-paper px-4 py-2.5 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5">
+              {tt.support.ctaContribute}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================ CTA ============================= -->
   <section class="pegboard-strong relative overflow-hidden">
     <div class="pointer-events-none absolute inset-0 -z-10 bg-paper/70"></div>
