@@ -6,18 +6,38 @@
  * ------------------------------------------------------------------ */
 @theme {
   --color-paper: #f1ede3;
-  --color-paper-2: #e9e4d6;
-  --color-paper-3: #ded7c5;
-  --color-ink: #182a20;
-  --color-ink-soft: #47564c;
-  --color-commons: #1c8f5a;
-  --color-commons-deep: #12693f;
+  --color-paper-2: #e8e3d5;
+  --color-paper-3: #dcd5c4;
+  --color-ink: #1d2830;
+  --color-ink-soft: #4b565f;
+  --color-commons: #14b5bd;
+  --color-commons-deep: #0c7681;
   --color-marigold: #e0a020;
   --color-line: #d6cfbe;
 
   --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Extra breakpoint for ultra-wide screens (1792px). */
+  --breakpoint-3xl: 112rem;
+}
+
+/* Page container — grows on wide screens instead of leaving huge margins. */
+.container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 1280px) {
+  .container-page { max-width: 80rem; padding-inline: 2rem; }
+}
+@media (min-width: 1536px) {
+  .container-page { max-width: 88rem; padding-inline: 2.5rem; }
+}
+@media (min-width: 1792px) {
+  .container-page { max-width: 96rem; }
 }
 
 :root {
@@ -39,28 +59,28 @@ html {
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
     color-scheme: dark;
-    --color-paper: #14201a;
-    --color-paper-2: #1a2721;
-    --color-paper-3: #24322b;
-    --color-ink: #ecebe1;
-    --color-ink-soft: #a3ada3;
-    --color-commons: #2cb271;
-    --color-commons-deep: #58d094;
+    --color-paper: #0f1b1f;
+    --color-paper-2: #16262b;
+    --color-paper-3: #1e3238;
+    --color-ink: #e9edec;
+    --color-ink-soft: #9fb0b1;
+    --color-commons: #2ad4d9;
+    --color-commons-deep: #63e0e4;
     --color-marigold: #ebb648;
-    --color-line: #344139;
+    --color-line: #2a3c41;
   }
 }
 html.dark {
   color-scheme: dark;
-  --color-paper: #14201a;
-  --color-paper-2: #1a2721;
-  --color-paper-3: #24322b;
-  --color-ink: #ecebe1;
-  --color-ink-soft: #a3ada3;
-  --color-commons: #2cb271;
-  --color-commons-deep: #58d094;
+  --color-paper: #0f1b1f;
+  --color-paper-2: #16262b;
+  --color-paper-3: #1e3238;
+  --color-ink: #e9edec;
+  --color-ink-soft: #9fb0b1;
+  --color-commons: #2ad4d9;
+  --color-commons-deep: #63e0e4;
   --color-marigold: #ebb648;
-  --color-line: #344139;
+  --color-line: #2a3c41;
 }
 
 @media (prefers-reduced-motion: reduce) {

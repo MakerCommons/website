@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; }
+      body {
+        background-color: #0f1b1f;
+        background-image: radial-gradient(circle at center, rgba(42, 212, 217, 0.16) 0 2px, transparent 2.2px);
+        background-size: 30px 30px;
+        color: #e9edec;
+        font-family: "Bricolage Grotesque", sans-serif;
+        padding: 68px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+      .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #2ad4d9; }
+      .top { display: flex; align-items: center; gap: 22px; }
+      .top img { width: 92px; height: 92px; border-radius: 18px; border: 3px solid #2a3c41; }
+      .word { font-size: 46px; font-weight: 800; letter-spacing: -0.02em; }
+      .word span { color: #2ad4d9; }
+      h1 { font-size: 82px; line-height: 0.98; font-weight: 800; letter-spacing: -0.03em; max-width: 15ch; }
+      h1 em { color: #2ad4d9; font-style: normal; }
+      .foot {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 22px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #9fb0b1;
+      }
+      .foot b { color: #e9edec; font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div class="bar"></div>
+    <div class="top">
+      <img src="../public/logo_maker_commons_fill.png" alt="" />
+      <div class="word">Maker<span>Commons</span></div>
+    </div>
+    <h1>Small tools. Real problems.<br />Given away <em>free</em>.</h1>
+    <div class="foot">A makers’ collective · <b>free &amp; open source</b> · AGPL-3.0</div>
+  </body>
+</html>

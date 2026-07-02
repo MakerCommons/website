@@ -19,16 +19,16 @@ const links = [
 ---
 
 <header class="sticky top-0 z-40 border-b border-line/80 bg-paper/85 backdrop-blur-md">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
+  <nav class="container-page flex items-center justify-between gap-4 py-3">
     <a href={localize('/', lang)} class="group flex items-center gap-2.5" aria-label="MakerCommons home">
-      <span
-        class="grid h-8 w-8 place-items-center rounded-[7px] border-2 border-ink bg-commons text-paper"
+      <img
+        src="/logo_maker_commons_fill.png"
+        alt=""
+        width="36"
+        height="36"
+        class="h-9 w-9 rounded-lg border-2 border-ink"
         aria-hidden="true"
-      >
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4a1.5 1.5 0 0 0 2.1 2.1l6.4-6.4a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1 2.5-2.5Z" />
-        </svg>
-      </span>
+      />
       <span class="font-display text-[1.15rem] font-bold leading-none tracking-tight">
         Maker<span class="text-commons-deep">Commons</span>
       </span>
@@ -122,7 +122,7 @@ const links = [
         m.setAttribute('name', 'theme-color');
         document.head.appendChild(m);
       }
-      m.setAttribute('content', dark ? '#14201a' : '#f1ede3');
+      m.setAttribute('content', dark ? '#0f1b1f' : '#f1ede3');
     }
     btn.addEventListener('click', function () {
       var next = isDark() ? 'light' : 'dark';

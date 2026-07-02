@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://makercommons.pages.dev/sitemap-index.xml
