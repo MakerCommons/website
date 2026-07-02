@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * MakerCommons — "the shared workshop"
+ * Riso/workshop palette: warm paper, pine ink, commons-green, marigold.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #f1ede3;
+  --color-paper-2: #e9e4d6;
+  --color-paper-3: #ded7c5;
+  --color-ink: #182a20;
+  --color-ink-soft: #47564c;
+  --color-commons: #1c8f5a;
+  --color-commons-deep: #12693f;
+  --color-marigold: #e0a020;
+  --color-line: #d6cfbe;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+:root {
+  --peg: 24px; /* pegboard hole pitch */
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-commons);
+  color: var(--color-paper);
+}
+
+/* ---- Pegboard: the signature backdrop ------------------------------ */
+.pegboard {
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--color-ink) 16%, transparent) 0 1.4px,
+    transparent 1.6px
+  );
+  background-size: var(--peg) var(--peg);
+  background-position: center;
+}
+.pegboard-strong {
+  --peg: 28px;
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--color-ink) 22%, transparent) 0 1.7px,
+    transparent 1.9px
+  );
+  background-size: var(--peg) var(--peg);
+}
+
+/* ---- Riso misregistration for the wordmark / hero keyword ---------- */
+.riso {
+  position: relative;
+  display: inline-block;
+  color: var(--color-ink);
+}
+.riso::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-commons);
+  mix-blend-mode: multiply;
+  transform: translate(0.055em, 0.045em);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---- Utility label look (mono, tracked, small) --------------------- */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- Peg hook that pins a "tool" card to the board ----------------- */
+.peg-hook::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  box-shadow: 20px 0 0 -2px var(--color-paper), 20px 0 0 0 var(--color-ink);
+}
+
+/* ---- Focus visibility floor ---------------------------------------- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2.5px solid var(--color-commons);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- Reveal on scroll (progressive enhancement, motion-safe) -------- *
+ * Only hidden when JS is present (html.js) AND motion is allowed, so the
+ * content is always visible without JS or with reduced-motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  html.js .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}

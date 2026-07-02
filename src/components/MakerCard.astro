@@ -1,0 +1,35 @@
+---
+import type { Maker } from '../lib/github';
+
+interface Props {
+  maker: Maker;
+}
+const { maker } = Astro.props;
+---
+
+<a
+  href={maker.url}
+  target="_blank"
+  rel="noopener"
+  class="group flex items-center gap-4 rounded-xl border-2 border-ink bg-paper p-4 transition-transform duration-200 hover:-translate-y-1"
+>
+  <img
+    src={`${maker.avatar}&s=120`}
+    alt={`${maker.name ?? maker.login} on GitHub`}
+    width="56"
+    height="56"
+    loading="lazy"
+    class="h-14 w-14 shrink-0 rounded-lg border-2 border-ink object-cover"
+  />
+  <div class="min-w-0">
+    <p class="font-display text-base font-bold leading-tight group-hover:text-commons-deep">
+      {maker.name ?? maker.login}
+    </p>
+    <p class="tag text-ink-soft">@{maker.login}</p>
+    {
+      maker.bio && (
+        <p class="mt-1 line-clamp-2 text-xs leading-snug text-ink-soft">{maker.bio}</p>
+      )
+    }
+  </div>
+</a>
