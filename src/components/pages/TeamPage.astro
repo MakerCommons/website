@@ -27,8 +27,8 @@ const makers = await getMakers();
       {
         makers.length > 0 ? (
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            {makers.map((m) => (
-              <div class="reveal">
+            {makers.map((m, i) => (
+              <div class="reveal" style={`--rd:${i * 60}ms`}>
                 <MakerCard maker={m} />
               </div>
             ))}

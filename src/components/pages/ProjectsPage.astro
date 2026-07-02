@@ -27,8 +27,8 @@ const projects = await getProjects();
       {
         projects.length > 0 ? (
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            {projects.map((p) => (
-              <div class="reveal">
+            {projects.map((p, i) => (
+              <div class="reveal" style={`--rd:${i * 60}ms`}>
                 <ProjectCard project={p} lang={lang} />
               </div>
             ))}
