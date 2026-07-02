@@ -1,17 +1,26 @@
 ---
 import { SITE } from '../lib/content';
+import { t, LOCALES, LOCALE_LABEL, LOCALE_NAME, type Locale } from '../i18n/ui';
+import { stripLocale, localize } from '../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const nav = t[lang].nav;
+const agnostic = stripLocale(Astro.url.pathname);
 
 const links = [
-  { href: '/#how', label: 'How it works' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/team', label: 'Makers' },
-  { href: SITE.manifesto, label: 'Manifesto', external: true },
+  { href: localize('/#how', lang), label: nav.how },
+  { href: localize('/projects', lang), label: nav.projects },
+  { href: localize('/team', lang), label: nav.makers },
+  { href: SITE.manifesto, label: nav.manifesto, external: true },
 ];
 ---
 
 <header class="sticky top-0 z-40 border-b border-line/80 bg-paper/85 backdrop-blur-md">
   <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
-    <a href="/" class="group flex items-center gap-2.5" aria-label="MakerCommons home">
+    <a href={localize('/', lang)} class="group flex items-center gap-2.5" aria-label="MakerCommons home">
       <span
         class="grid h-8 w-8 place-items-center rounded-[7px] border-2 border-ink bg-commons text-paper"
         aria-hidden="true"
@@ -42,11 +51,34 @@ const links = [
           ))
         }
       </ul>
+
+      <!-- Language switcher -->
+      <div class="flex items-center rounded-md border-2 border-ink" role="group" aria-label={nav.language}>
+        {
+          LOCALES.map((l, i) => (
+            <a
+              href={localize(agnostic, l)}
+              hreflang={l}
+              lang={l}
+              aria-label={LOCALE_NAME[l]}
+              aria-current={l === lang ? 'true' : undefined}
+              class:list={[
+                'px-2 py-1.5 text-xs font-mono font-medium transition-colors',
+                i > 0 && 'border-l-2 border-ink',
+                l === lang ? 'bg-ink text-paper' : 'text-ink-soft hover:bg-paper-2 hover:text-ink',
+              ]}
+            >
+              {LOCALE_LABEL[l]}
+            </a>
+          ))
+        }
+      </div>
+
       <button
         id="theme-toggle"
         type="button"
-        aria-label="Toggle dark mode"
-        title="Toggle dark mode"
+        aria-label={nav.toggleTheme}
+        title={nav.toggleTheme}
         class="grid h-9 w-9 place-items-center rounded-md border-2 border-ink bg-paper text-ink transition-transform hover:-translate-y-0.5"
       >
         <svg class="t-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -62,9 +94,9 @@ const links = [
         href={SITE.newIssue}
         target="_blank"
         rel="noopener"
-        class="inline-flex items-center gap-1.5 rounded-md border-2 border-ink bg-ink px-3.5 py-2 text-sm font-semibold text-paper transition-transform hover:-translate-y-0.5"
+        class="hidden items-center gap-1.5 rounded-md border-2 border-ink bg-ink px-3.5 py-2 text-sm font-semibold text-paper transition-transform hover:-translate-y-0.5 sm:inline-flex"
       >
-        Bring a problem
+        {nav.bring}
       </a>
     </div>
   </nav>

@@ -7,32 +7,47 @@ import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { SITE } from '../lib/content';
+import { t, LOCALES, type Locale } from '../i18n/ui';
+import { stripLocale, localize } from '../i18n/utils';
 
 interface Props {
+  lang: Locale;
   title?: string;
   description?: string;
 }
 
-const { title, description = SITE.description } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const { lang, title, description } = Astro.props;
+const tt = t[lang];
+const desc = description ?? tt.meta.description;
+const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — ${tt.meta.tagline}`;
+
+const agnostic = stripLocale(Astro.url.pathname);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternates = LOCALES.map((l) => ({
+  hreflang: l,
+  href: new URL(localize(agnostic, l), Astro.site).href,
+}));
+const xDefault = new URL(localize(agnostic, 'en'), Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
     <meta name="theme-color" content="#f1ede3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14201a" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -42,8 +57,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <script is:inline>
       document.documentElement.classList.add('js');
       try {
-        var t = localStorage.getItem('theme');
-        if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
+        var th = localStorage.getItem('theme');
+        if (th === 'dark' || th === 'light') document.documentElement.classList.add(th);
       } catch (e) {}
     </script>
   </head>
@@ -51,13 +66,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-      >Skip to content</a
+      >{lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a
     >
-    <SiteNav />
+    <SiteNav lang={lang} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter lang={lang} />
 
     <script>
       // Progressive scroll reveal — no-op under reduced motion (CSS guards it).

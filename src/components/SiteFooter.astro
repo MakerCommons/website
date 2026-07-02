@@ -1,21 +1,29 @@
 ---
 import { SITE } from '../lib/content';
+import { t, type Locale } from '../i18n/ui';
+import { localize } from '../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const f = t[lang].footer;
 
 const cols = [
   {
-    head: 'The collective',
+    head: f.collective,
     links: [
-      { href: SITE.manifesto, label: 'Manifesto', external: true },
-      { href: SITE.contributing, label: 'Contributing', external: true },
-      { href: SITE.org, label: 'GitHub org', external: true },
+      { href: SITE.manifesto, label: f.manifesto, external: true },
+      { href: SITE.contributing, label: f.contributing, external: true },
+      { href: SITE.org, label: f.org, external: true },
     ],
   },
   {
-    head: 'Take part',
+    head: f.takePart,
     links: [
-      { href: SITE.newIssue, label: 'Bring a problem', external: true },
-      { href: SITE.newIssue, label: 'Propose a tool', external: true },
-      { href: '/projects', label: 'Browse projects' },
+      { href: SITE.newIssue, label: f.bring, external: true },
+      { href: SITE.newIssue, label: f.propose, external: true },
+      { href: localize('/projects', lang), label: f.browse },
     ],
   },
 ];
@@ -28,10 +36,10 @@ const cols = [
         Maker<span class="text-commons-deep">Commons</span>
       </span>
       <p class="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
-        {SITE.description}
+        {t[lang].meta.description}
       </p>
       <p class="tag mt-5 text-ink-soft">
-        Est. {SITE.est} · {SITE.license} · built by the commons
+        Est. {SITE.est} · {SITE.license} · {f.built}
       </p>
     </div>
 
@@ -60,8 +68,8 @@ const cols = [
 
   <div class="border-t border-line">
     <div class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-5 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between">
-      <span>© {SITE.est} MakerCommons · Free & open under {SITE.license}.</span>
-      <span class="font-mono">Point powerful tools at real problems. Give the results away.</span>
+      <span>© {SITE.est} MakerCommons · {f.rights}</span>
+      <span class="font-mono">{f.motto}</span>
     </div>
   </div>
 </footer>
